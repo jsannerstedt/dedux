@@ -36,6 +36,10 @@ There is also an option to provide an existing initial state object. This is use
 
 ## examples
 
+### complete riot based app
+[riot-spa-example](https://github.com/jsannerstedt/riot-spa-example) - Shows some suggestions for structuring, as well as rendering client/server with shared state and routes.
+
+
 ### basic sync use case
 ```js
 import { combineModifiers, createActions, createStore } from 'dedux';
