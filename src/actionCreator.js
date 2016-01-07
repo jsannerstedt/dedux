@@ -1,16 +1,8 @@
 'use strict';
 
-import { createEventStore } from './utils';
+import { createEventEmitter } from './utils';
 
 export default actionNames => actionNames.reduce((actions, name) => {
-  actions[name] = getAction();
+  actions[name] = createEventEmitter();
   return actions;
 }, {});
-
-function getAction() {
-  const events = createEventStore();
-  const func = data => events.trigger(data);
-  func.subscribe = events.on;
-
-  return func;
-}

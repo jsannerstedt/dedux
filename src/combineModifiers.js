@@ -28,7 +28,7 @@ export default collection =>
   reduceObject(collection, (map, namespace) =>
     reduceObject(collection[namespace], (map, name) => {
       const modifier = collection[namespace][name];
-      modifier.namespace = namespace;
+      modifier.key = namespace;
       map[name] = map[name] || [];
       map[name].push(modifier);
       return map;

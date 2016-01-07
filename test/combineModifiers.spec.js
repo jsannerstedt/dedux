@@ -22,11 +22,11 @@ describe('combineModifiers', () => {
     assert.equal(1, modifiers.enterName.length);
   });
   describe('modifier', () => {
-    it('should have a namespace property, when created', () => {
+    it('should have a key property, when created', () => {
       const modifiers = combineModifiers({
         one: { open: () => ({}) }
       });
-      assert.equal(modifiers.open[0].namespace, 'one');
+      assert.equal(modifiers.open[0].key, 'one');
     });
   });
 });
