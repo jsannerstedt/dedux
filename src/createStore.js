@@ -6,7 +6,10 @@ export default (modifiers, actions, initialState) => {
   const eventEmitter = createEventEmitter();
   const state = {};
   runModifiers(modifiers.initialState || []);
-  Object.assign(state, initialState);
+
+  if (initialState) {
+    Object.assign(state, initialState);
+  }
 
   Object.keys(modifiers)
     .forEach(action => actions[action] && actions[action].subscribe(payload => updateState(action, payload)));
@@ -25,7 +28,7 @@ export default (modifiers, actions, initialState) => {
 
   function runModifiers(selectedModifiers, payload) {
     selectedModifiers.forEach(modifier =>
-      state[modifier.key] = Object.assign(state[modifier.key] || {}, modifier(payload, state[modifier.key]))
+      state[modifier.key] = Object.assign({}, state[modifier.key] || {}, modifier(payload, state[modifier.key]))
     );
   }
 };

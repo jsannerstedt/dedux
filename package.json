@@ -9,7 +9,7 @@
   "scripts": {
     "test:mocha": "BABEL_ENV=test mocha --compilers js:babel-register ./test",
     "lint": "eslint src/**/*.js",
-    "build": "BABEL_ENV=build rollup -c rollupConfig.js",
+    "build": "npm run lint && BABEL_ENV=build rollup -c rollupConfig.js",
     "minify": "npm run build && uglifyjs lib/dedux.js -c -m -o lib/dedux.min.js"
   },
   "author": "joel.sannerstedt@gmail.com",

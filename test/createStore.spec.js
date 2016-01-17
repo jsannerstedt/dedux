@@ -50,4 +50,19 @@ describe('createStore', () => {
     });
     actions.toggleMenu(true);
   });
+  it('should create a new object, when modifing state', function(){
+    const modifiers = combineModifiers({
+      menu: {
+        initialState: () => ({ menuOpen: true }),
+        toggleMenu: payload => ({ menuOpen: payload })
+      }
+    });
+    const actions = createActions(Object.keys(modifiers));
+    const store = createStore(modifiers, actions);
+    const state = store.getState().menu;
+    actions.toggleMenu(true);
+    // should not be the same object, but should look the same
+    assert.notEqual(state, store.getState().menu);
+    assert.deepEqual(state, store.getState().menu);
+  });
 });
