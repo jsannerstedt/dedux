@@ -37,7 +37,7 @@ There is also an option to provide an existing initial state object. This is use
 ## examples
 
 ### Todo MVC
-[Riot TodoMVC](https://github.com/jsannerstedt/dedux-TodoMVC), adaptation of existing riot TodoMVC app, to show dedux structure... 
+[Riot TodoMVC](https://github.com/jsannerstedt/dedux-TodoMVC), adaptation of existing riot TodoMVC app, to show dedux structure...
 
 ### complete riot based app
 [riot-spa-example](https://github.com/jsannerstedt/riot-spa-example) - Shows some suggestions for structuring, as well as rendering client/server with shared state and routes.
@@ -102,10 +102,8 @@ actions.fetchCustomers();
 ... is very much up for debate, just went with the current -ux trend....
 
 ## TODO
-* tests
 * more documentation
 * more examples
-* publish
 
 ## License
 ISC
