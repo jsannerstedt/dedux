@@ -22,7 +22,7 @@ export default (modifiers, actions, initialState) => {
   function updateState(action, payload) {
     if (modifiers[action]) {
       runModifiers(modifiers[action], payload);
-      eventEmitter(state);
+      eventEmitter(state, action, payload);
     }
   }
 
