@@ -50,6 +50,20 @@ describe('createStore', () => {
     });
     actions.toggleMenu(true);
   });
+  it('should notify subscribers with action and payload', () => {
+    const modifiers = combineModifiers({
+      menu: {
+        toggleMenu: payload => ({ menuOpen: payload })
+      }
+    });
+    const actions = createActions(Object.keys(modifiers));
+    const store = createStore(modifiers, actions);
+    store.subscribe((state, action, payload) => {
+      assert.equal('toggleMenu', action);
+      assert.ok(payload);
+    });
+    actions.toggleMenu(true);
+  });
   it('should create a new object, when modifing state', function(){
     const modifiers = combineModifiers({
       menu: {

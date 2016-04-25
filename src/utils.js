@@ -4,7 +4,9 @@ export { createEventEmitter };
 
 function createEventEmitter() {
   const listeners = [];
-  const trigger = data => listeners.forEach(listener => listener(data));
+  const trigger = function trigger(...args) {
+    return listeners.forEach(listener => listener(...args));
+  };
   trigger.subscribe = callback => {
     listeners.push(callback);
     return () => listeners.splice(listeners.indexOf(callback), 1);
