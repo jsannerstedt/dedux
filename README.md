@@ -98,6 +98,16 @@ actions.fetchCustomers();
 // and eventually if successful { customers: [/*data*/], isLoading: false }
 ```
 
+### on chain of listeners completed
+Any action will return the values of its listeners in an array. Given that these values could be promises, we can use Promise.all to be notified when all handlers have completed.
+
+```js
+Promise.all(actions.fetchCustomers())
+  .then(results => {
+    console.log(results);
+  });
+```
+
 ## the name...
 ... is very much up for debate, just went with the current -ux trend....
 
