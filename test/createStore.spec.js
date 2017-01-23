@@ -64,7 +64,7 @@ describe('createStore', () => {
     });
     actions.toggleMenu(true);
   });
-  it('should create a new object, when modifing state', function(){
+  it('should create a new object, when modifing state', () => {
     const modifiers = combineModifiers({
       menu: {
         initialState: () => ({ menuOpen: true }),
@@ -78,5 +78,15 @@ describe('createStore', () => {
     // should not be the same object, but should look the same
     assert.notEqual(state, store.getState().menu);
     assert.deepEqual(state, store.getState().menu);
+  });
+  it('should create an empty object, when initialState is not provided', () => {
+    const modifiers = combineModifiers({
+      menu: {
+        toggleMenu: payload => ({ menuOpen: payload })
+      }
+    });
+    const actions = createActions(Object.keys(modifiers));
+    const store = createStore(modifiers, actions);
+    assert.deepEqual({}, store.getState().menu);
   });
 });

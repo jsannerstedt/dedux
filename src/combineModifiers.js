@@ -23,13 +23,17 @@ Every function is given a namespace property with their parent object key as val
 */
 
 const reduceObject = (obj, reducer, initialValue) => Object.keys(obj).reduce(reducer, initialValue);
+const initialState = () => ({});
+const ensureInitialState = modifiers => modifiers.initialState ? modifiers : Object.assign({}, modifiers, { initialState });
 
 export default collection =>
-  reduceObject(collection, (map, namespace) =>
-    reduceObject(collection[namespace], (map, name) => {
-      const modifier = collection[namespace][name];
+  reduceObject(collection, (map, namespace) => {
+    const modifiers = ensureInitialState(collection[namespace]);
+    return reduceObject(modifiers, (map, name) => {
+      const modifier = modifiers[name];
       modifier.key = namespace;
       map[name] = map[name] || [];
       map[name].push(modifier);
       return map;
-    }, map), {});
+    }, map);
+  }, {});
