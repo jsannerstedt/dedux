@@ -81,6 +81,8 @@ describe('createStore', () => {
   });
   it('should create an empty object, when initialState is not provided', () => {
     const modifiers = combineModifiers({
+      stuff: {
+        action: () => ({})},
       menu: {
         toggleMenu: payload => ({ menuOpen: payload })
       }
@@ -88,5 +90,6 @@ describe('createStore', () => {
     const actions = createActions(Object.keys(modifiers));
     const store = createStore(modifiers, actions);
     assert.deepEqual({}, store.getState().menu);
+    assert.deepEqual({}, store.getState().stuff);
   });
 });
