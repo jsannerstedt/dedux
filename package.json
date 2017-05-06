@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/dedux.js",
   "browser": "lib/dedux.js",
-  "jsnext:main": "src/index.js",
+  "module": "src/index.js",
   "bugs": "https://github.com/jsannerstedt/dedux",
   "scripts": {
     "test": "BABEL_ENV=test mocha --compilers js:babel-register ./test",

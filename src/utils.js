@@ -1,8 +1,4 @@
-'use strict';
-
-export { createEventEmitter };
-
-function createEventEmitter() {
+export const createEventEmitter = () => {
   const listeners = [];
   const trigger = function trigger(...args) {
     return listeners.map(listener => listener(...args));
@@ -13,4 +9,6 @@ function createEventEmitter() {
   };
 
   return trigger;
-}
+};
+
+export const reduceObject = (obj, reducer, initialValue) => Object.keys(obj).reduce(reducer, initialValue);

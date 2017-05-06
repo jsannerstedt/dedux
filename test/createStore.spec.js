@@ -1,5 +1,3 @@
-'use strict';
-
 import { assert } from 'chai';
 import createStore from '../src/createStore';
 import createActions from '../src/actionCreator';
@@ -29,7 +27,7 @@ describe('createStore', () => {
   it('should modify state when running an action', () => {
     const modifiers = combineModifiers({
       menu: {
-        toggleMenu: payload => ({ menuOpen: payload })
+        toggleMenu: (state, payload) => ({ menuOpen: payload })
       }
     });
     const actions = createActions(Object.keys(modifiers));
@@ -37,10 +35,21 @@ describe('createStore', () => {
     actions.toggleMenu(true);
     assert.deepEqual(store.getState(), { menu: { menuOpen: true } });
   });
+  it('should handle multiple parameters to an action', () => {
+    const modifiers = combineModifiers({
+      menu: {
+        doit: (state, str1, str2) => ({ str1, str2 })
+      }
+    });
+    const actions = createActions(Object.keys(modifiers));
+    const store = createStore(modifiers, actions);
+    actions.doit('1', '2');
+    assert.deepEqual(store.getState(), { menu: { str1: '1', str2: '2' } });
+  });
   it('should notify subscribers with new state when running an action', () => {
     const modifiers = combineModifiers({
       menu: {
-        toggleMenu: payload => ({ menuOpen: payload })
+        toggleMenu: (state, payload) => ({ menuOpen: payload })
       }
     });
     const actions = createActions(Object.keys(modifiers));
@@ -68,7 +77,7 @@ describe('createStore', () => {
     const modifiers = combineModifiers({
       menu: {
         initialState: () => ({ menuOpen: true }),
-        toggleMenu: payload => ({ menuOpen: payload })
+        toggleMenu: (state, payload) => ({ menuOpen: payload })
       }
     });
     const actions = createActions(Object.keys(modifiers));
@@ -82,7 +91,8 @@ describe('createStore', () => {
   it('should create an empty object, when initialState is not provided', () => {
     const modifiers = combineModifiers({
       stuff: {
-        action: () => ({})},
+        action: () => ({})
+      },
       menu: {
         toggleMenu: payload => ({ menuOpen: payload })
       }

@@ -1,28 +1,26 @@
-'use strict';
-
+import { reduceObject } from './utils';
 /*
 
-Takes an object like {
-  menu: {
-    initialState: () => ({ menuOpen: false }),
-    openMenu: payload => ({ menuOpen: payload })
-  },
-  somethingElse: {
-    openMenu: payload => ({ showSideBar: !payload }),
-    enterName: payload => ({ name: payload })
-  }
-}
+ Takes an object like {
+   menu: {
+     initialState: () => ({ menuOpen: false }),
+     openMenu: (state, payload) => ({ menuOpen: payload })
+   },
+   somethingElse: {
+     openMenu: (state, payload) => ({ showSideBar: !payload }),
+     enterName: (state, payload) => ({ name: payload })
+    }
+ }
 
-and turns it into {
-  openMenu: [ menu.openMenu, somethingElse.openMenu ],
-  enterName: [ somethingElse.enterName ]
-}
+ and turns it into {
+   openMenu: [ menu.openMenu, somethingElse.openMenu ],
+   enterName: [ somethingElse.enterName ]
+ }
 
-Every function is given a namespace property with their parent object key as value. This can later be used to divide the state object.
+ Every function is given a namespace property with their parent object key as value. This can later be used to divide the state object.
 
-*/
+ */
 
-const reduceObject = (obj, reducer, initialValue) => Object.keys(obj).reduce(reducer, initialValue);
 const ensureInitialState = modifiers => modifiers.initialState ? modifiers : Object.assign({}, modifiers, { initialState: () => ({}) });
 
 export default collection =>

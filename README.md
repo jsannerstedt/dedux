@@ -50,7 +50,7 @@ import { combineModifiers, createActions, createStore } from 'dedux';
 const modifiers = combineModifiers({
   menu: {
     initialState: () => ({ menuOpen: false }),
-    toggleMenu: payload => ({ menuOpen: payload })
+    toggleMenu: (state, payload) => ({ menuOpen: payload })
   }
 });
 
@@ -76,8 +76,8 @@ const modifiers = combineModifiers({
   customers: {
     initialState: () => ({ customers: [], isLoading: false }),
     fetchCustomers: () => ({ isLoading: true }),
-    fetchCustomersSuccess: payload => ({ isLoading: false, customers: payload }),
-    fetchCustomersError: payload => ({ isLoading: false, error: payload })
+    fetchCustomersSuccess: (state, payload) => ({ isLoading: false, customers: payload }),
+    fetchCustomersError: (state, payload) => ({ isLoading: false, error: payload })
   }
 });
 
@@ -87,7 +87,7 @@ const store = createStore(modifiers, actions);
 
 actions.fetchCustomers.subscribe(() => fetch('/customer')
   .then(actions.fetchCustomersSuccess)
-  .catch(actions.fetchCustomersError);
+  .catch(actions.fetchCustomersError));
 
 store.subscribe(state => {
   console.log(state.customers);
